@@ -9,20 +9,8 @@
 # IntelliJ IDEA
 .idea/
 *.iml
-
-# Maven
 target/
-
-# Logs
+out/
 *.log
-
-# OS files
 .DS_Store
 Thumbs.db
-
-# Build
-out/
-
-# Temp
-*.tmp
-*.swp

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.util.HtmlUtils;
 import web.model.User;
 import web.service.UserService;
 
@@ -28,18 +27,6 @@ public class UserController {
         return "users";
     }
 
-    public User getUser(Long id) {
-        return null;
-    }
-
-    public void saveUser(User user) {
-
-    }
-
-    public void updateUser(User user) {
-
-    }
-
     @PostMapping("/add")
     public String createUser(
             @RequestParam("name") String name,
@@ -50,7 +37,7 @@ public class UserController {
         User user = new User();
         user.setName(name);
         user.setSurname(surname);
-        user.setAge((long) age);
+        user.setAge(age);
         user.setEmail(email);
 
         userService.saveUser(user);
@@ -66,13 +53,7 @@ public class UserController {
 
     @GetMapping("/edit")
     public String editUser(@RequestParam("id") Long id, Model model) {
-        User user = userService.getUser(id);
-
-        user.setName(HtmlUtils.htmlUnescape(user.getName()));
-        user.setSurname(HtmlUtils.htmlUnescape(user.getSurname()));
-        user.setEmail(HtmlUtils.htmlUnescape(user.getEmail()));
-
-        model.addAttribute("user", user);
+        model.addAttribute("user", userService.getUser(id));
         return "edit-user";
     }
 
@@ -81,7 +62,7 @@ public class UserController {
             @RequestParam("id") Long id,
             @RequestParam("name") String name,
             @RequestParam("surname") String surname,
-            @RequestParam("age") int age,
+            @RequestParam("age") Long age,
             @RequestParam("email") String email
     ) {
         User user = new User();
